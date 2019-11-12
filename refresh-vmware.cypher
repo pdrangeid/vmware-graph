@@ -158,6 +158,7 @@ MERGE (vpg:Vportgroup {name:row.`Port Group`,managedby:row.`VI SDK UUID`}) REMOV
 MERGE (pg:Vhostportgroup {name:row.`Port Group`,host:row.Host,managedby:row.`VI SDK UUID`}) REMOVE pg.unverified
 MERGE (vsp:Vlbpolicy {name:coalesce(row.Policy,'None Provided')})
 MERGE (vpg)<-[:HOST_PG_FOR]-(pg)
+MERGE (pg)-[:STANDARD_PG_ON]->(vmh)
 MERGE (vsw)-[:LOAD_BALANCING_POLICY]->(vsp)
 SET pg.vlan=row.VLAN,pg.promiscuous=row.`Promiscuous Mode`,pg.macchanges=row.`Mac Changes`,pg.forged=row.`Forged Transmits`,pg.shaping=row.`Traffic Shaping`;
 
